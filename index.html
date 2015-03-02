@@ -20,10 +20,18 @@ h1 {
 	font-size: 3rem;
 }
 
-.logo img {
+.logo {
+	display: inline-block;
+	font-size: 0;
 	padding: 5px;
 	border: 2px solid #fff;
 	border-radius: 10px;
+}
+
+.logo .image {
+	width: 200px;
+	height: 200px;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAAACpUlEQVR4nOzdvc0TQRRAUfAPARVAE5YISdwMlIEzyoBmnBA4oAyogADLFi2Y1d5vPfY5+UpP1pUnGc3b7A6nVzC31dID8JiERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCQ20z778eXDvHPcv2/HX9+Pv5eeYhgTw3r7Zj3vHPdvu/bv/h/8WCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERWLiw2t//l7mneP+nS/XpUcYyevd4bT0DDwgRyEJYZEQFglhkRAWCWGREBYJYZEQFglhkRAWCWGREBYJYZGYeB9rQZa7DmG8sCx3HcJ4EzMEYZEQFglhkRAWCWGREBYJYZEQFglhkRAWCWGREBYJYZEQFglhkRAWCWGREBYJYZEQFglhkRAWCWGREBYJYZEQFglhkRAWCWGREBYJYZEY7+E1y12HYMMqCUchCWGREBYJYZEQFglhkRAWCWGREBYJYZEQFglhkRAWCWGRGO8+1lI+7d993r9feoqX9vHrz2kfCutW2/XqCZe7TuYoJCEsEsIiISwSwiIhLBLCIiEsEsIiISwSwiIhLBLCIiEsEsIiISwSwiIhLBLCIiEsEsIiISwSwiIhLBLCIiEsEsIiISwSwiIhLBLCIiEsEh5eu9X5cn3C5a6T2bBKwlFIQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgk/gUAAP//rCYoeiVEz1gAAAAASUVORK5CYII=');
 }
 
 .container {
@@ -45,7 +53,9 @@ h1 {
 <body>
 	<section class='container'>
 		<div class="center">
-			<div class="logo"><img src="assets/i/logo.png"/></div>
+			<div class="logo">
+				<div class="image"></div>
+			</div>
 			<h1>CSSG</h1>
 			<h2>descriptional meta-language</h2>
 		</div>

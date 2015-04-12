@@ -1,0 +1,10 @@
+## dev deps
+.idea
+node_modules
+_tmp
+
+## exclude resource
+cssg-landing/
+
+## logging
+*.log

@@ -1,0 +1,335 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>CSS-o-Gram - CSSG</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="description" content="CSS descriptional meta language">
+<meta name="keywords" content="CSS, layout skeleton, meta-language, html parser, AST tree">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link href='http://fonts.googleapis.com/css?family=Cabin:400,600,400italic|Ubuntu:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/main.css">
+
+<link rel="subresource" href="../assets/js/jquery.min.js"/>
+<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+    <div class="container">
+        
+        <a class="logo" href="/" title="CSS-o-Gram - About">
+            <span class="logo_img">
+                <img src="../assets/i/logo.png" alt="CSSG logo"/>
+            </span>
+            <span class="logo_tx">
+                CSSG
+            </span>
+        </a>
+        <nav class="nav">
+            
+    
+        
+    
+
+    
+        
+            <a class="nav_i
+                
+                 __active
+                " href="/index.html">About</a>
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        
+            <a class="nav_i " href="/../editor.html">Editor</a>
+        
+    
+
+    
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+            <div class="share">
+                <a class="share_i __github" href="https://github.com/CSSG">Github repo</a>
+            </div>
+        </nav>
+    </div>
+</header>
+        <!-- /header -->
+        <div class="container">
+            <main class="content">
+                <!-- body -->
+                
+                
+                    <div class="row">
+
+    
+        <div class="three columns">
+            <!-- submenu -->
+            <menu class="menu __hidden js-menu">
+    
+        <li class="menu_i">
+            <a class="menu_a" href="/docs/basic.html" title="CSSG basics">CSSG basics</a>
+            <ul class="menu_list js-menu_list __basic"></ul>
+        </li>
+    
+        <li class="menu_i">
+            <a class="menu_a" href="/docs/advanced.html" title="Advanced CSSG">Advanced CSSG</a>
+            <ul class="menu_list js-menu_list __advanced"></ul>
+        </li>
+    
+        <li class="menu_i">
+            <a class="menu_a" href="/docs/legend.html" title="Essential legend">Essential legend</a>
+            <ul class="menu_list js-menu_list __legend"></ul>
+        </li>
+    
+</menu>
+            <!-- /submenu -->
+        </div>
+    
+
+    <div class="nine columns">
+
+<h1 id="let-s-dig-in">Let&#39;s dig in</h1>
+<h2 id="multiplicity">Multiplicity</h2>
+<p>Multiplicity happens to be typical for some substances, e.g. list elements or some blocks sequence.</p>
+<p>In CSSG it will look like this:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post_cnt
+        post_cnt_ul
+            post_cnt_li +
+
+*/</span></code></pre>
+<p>or like that:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post_cnt
+        post_cnt_i *
+
+*/</span></code></pre>
+<p>The main difference between &#39;+&#39; and &#39;<em>&#39; is in multiplicity specifics.<br>&#39;+&#39; says that element will appear at least 1 time (which is typical for list items - \<li\>)<br>&#39;</em>&#39; however says that element may appear more than 0 times (any other elements - you name it)</p>
+<blockquote>
+<p>it&#39;s important to feel the distinction between optional elements ([element]) and appearing 0 and more times (element *)<br>insignificant on the first sight, it appears to have contextual meaning</p>
+</blockquote>
+<h2 id="modificators-more-and-meaningful">Modificators - more and meaningful</h2>
+<p>As it was mentioned in <a href="basic.md">basic</a>, modificators complement substance and theoretically their simultaneous presence is possible.<br>Crucial logic described with the help of special syntax.</p>
+<p>For example, alternative is illustrated this way:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post                            ( __current | __regular ) __deleted
+
+*/</span></code></pre>
+<p>and even like this:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post                            ( ( __current | __regular ) | __compact ) __deleted
+
+*/</span></code></pre>
+<p>Dot (.) illustrates robust connection between class and another class or modificator</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post                             __compact __featured
+        post_h
+            post_h_tx . __bold
+        post_b
+            post_b_cnt
+                ...
+
+*/</span></code></pre>
+<blockquote>
+<p>alignment on the right for connected class is not necessary</p>
+</blockquote>
+<h2 id="inheritance">Inheritance</h2>
+<p>Substance can be direct descendant of other substance.<br>To point this out, define ancestor via &quot;@&quot; symbol.</p>
+<pre><code class="language-css"><span class="comment">/*
+
+       post-advanced @ post
+           post-advanced_h
+           post-advanced_b
+
+*/</span></code></pre>
+<blockquote>
+<p>it&#39;s not necessary to list all modificators, because they inherited by default<br>however, if there is any difference, we must list all possible classes<br>it&#39;s accepted that these defined modificators will only be possible</p>
+</blockquote>
+<p>For instance, it is illustrated in the following code, that <strong>post-advanced</strong> will have one possible modificator <strong>__new</strong>, regardless the fact, that <strong>post</strong> has some modificators as well</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post-advanced @ post                __new
+           post-advanced_h
+           post-advanced_b
+
+*/</span></code></pre>
+<h2 id="nominal-templates">Nominal templates</h2>
+<p>Inheritance is directly connected with nominal templates.<br>We simplify illustration of descendant substance and avoid code duplication by setting changeable parts in ancestor substance.<br>This is not mandatory, but turns out to be helpful if you have at least two such substances.</p>
+<p>As an example, let&#39;s say ancestor substance looks like this:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_cnt
+            % content %
+
+*/</span></code></pre>
+<p>or like this, if there is any default content </p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_cnt
+            % content %
+                post_cnt_i
+
+*/</span></code></pre>
+<p>descendant substance</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post-advanced @ post
+
+    % content
+        post-advanced_cnt
+            post-advanced_cnt_i
+
+*/</span></code></pre>
+<blockquote>
+<p>when &quot;filling&quot; the template second % symbol is unnecessary</p>
+</blockquote>
+<p>In this case <strong>post-advanced_cnt</strong> will be inside <strong>post_cnt</strong> and will override default content from second code piece.<br>Without nominal templates, CSSG may look like this:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post-advanced @ post
+
+        post_cnt
+            post-advanced_cnt
+                post-advanced_cnt_i
+
+*/</span></code></pre>
+<p>There&#39;s almost no difference in this case.<br>However all notation potential can be seen in context of describing more complex structure</p>
+<blockquote>
+<p>the <strong>% content %</strong> element has no DOM implementation, it is just a template name</p>
+</blockquote>
+<h2 id="dynamics">Dynamics</h2>
+<p>By dynamics it&#39;s meant that some class or element may appear in layout due to scripts and user activity.</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post                     $__disabled | $__active
+        post_h
+        post_b
+            post_cnt
+
+*/</span></code></pre>
+<p>To define dynamic blocks complemented syntax for optional parts is used:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        $[post_msg]                     
+        post_h
+        post_b
+            post_cnt
+                $[post_cnt_msg]
+                    post_cnt_tx
+                $[/post_cnt_msg]
+
+*/</span></code></pre>
+<h2 id="it-s-omplicated">It&#39;s &lt;&lt;omplicated</h2>
+<p>Complex CSS approach can be described with CSSG.</p>
+<p>Alternative (mutual exclusive) blocks example:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_b
+
+            [1]
+            post_cnt
+                post_cnt_lst
+
+            [2]
+            post_cnt2
+                ...
+
+            [/]
+
+*/</span></code></pre>
+<p>When it&#39;s necessary to illustrate some valueable class somewhere on the upper level in DOM tree:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    blog . __complex    
+
+    ///
+
+    post
+        post_b
+            post_cnt
+
+*/</span></code></pre>
+<p>CSSG is self-explanatory <em>as a rule</em>, but some tough situations may require comments:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h (1)
+        post_b
+            post_cnt (2)
+    _______________________________________________
+
+    (1) comment on post_h
+    (2) another comment
+
+*/</span></code></pre>
+<p>Proceed to <a href="legend.md">legend</a></p>
+
+
+    </div>
+</div>
+                
+                <!-- /body -->
+            </main>
+        </div>
+        <!-- footer -->
+        <footer>
+    <div class="container">
+        <div class="row">
+            <div class="columns six">
+                <section>CSSG version: 2.0 release</section>
+                <section>CSSG edtior version: 0.1.0 alpha</section>
+            </div>
+            <div class="columns six">
+                <section>2013 - 2015 CSS-o-Gram</section>
+                <section>MIT license</section>
+            </div>
+        </div>
+    </div>
+</footer>
+        <!-- /footer -->
+        <script type="text/javascript" async src="../assets/js/main.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-61571934-1', 'auto');
+    ga('send', 'pageview');
+</script>
+    </body>
+</html>

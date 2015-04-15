@@ -39,7 +39,7 @@ app.use(compress({level: 6}));
 //
 // serve static (cacheable)
 var oneDay = 86400000;
-app.use(express.static(path.join(__dirname, dist), { maxAge: oneDay*7 }));
+app.use(express.static(path.join(__dirname, dist), { maxAge: oneDay }));
 
 
 //

@@ -1,150 +1,364 @@
-<!doctype HTML><html><head><title>CSS-o-Gram - CSSG</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta name="description" content="CSS descriptional meta language"><meta name="keywords" content="CSS, layout skeleton, meta-language, html parser, AST tree"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/x-icon" href="/favicon.ico"><link href="http://fonts.googleapis.com/css?family=Cabin:400,600,400italic|Ubuntu:400,700" rel="stylesheet" type="text/css"><link rel="stylesheet" href="../assets/css/main.css"><link rel="subresource" href="../assets/js/jquery.min.js"><script type="text/javascript" src="../assets/js/jquery.min.js"></script></head><body><header><div class="container"><a class="logo" href="/" title="CSS-o-Gram - About"><span class="logo_img"><img src="../assets/i/logo.png" alt="CSSG logo"></span> <span class="logo_tx">CSSG</span></a><nav class="nav"><a class="nav_i __active" href="/index.html">About</a> <a class="nav_i" href="/../editor.html">Editor</a><div class="share"><a class="share_i __github" target="_blank" title="Star on Github" href="https://github.com/CSSG"><i class="icon-github"></i><span>Star on Github</span></a> <a class="share_i __facebook" target="_blank" title="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://cssg.rocks/"><i class="icon-facebook"></i></a> <a class="share_i __twitter" target="_blank" title="Share on Twitter" href="https://twitter.com/intent/tweet?text=CSS-o-Gram Rocks!&amp;url=http://cssg.rocks/"><i class="icon-twitter"></i></a></div></nav></div></header><div class="container"><main class="content"><div class="row"><div class="three columns"><menu class="menu __hidden js-menu"><li class="menu_i"><a class="menu_a" href="/docs/basic.html" title="CSSG basics">CSSG basics</a><ul class="menu_list js-menu_list __basic"></ul></li><li class="menu_i"><a class="menu_a" href="/docs/advanced.html" title="Advanced CSSG">Advanced CSSG</a><ul class="menu_list js-menu_list __advanced"></ul></li><li class="menu_i"><a class="menu_a" href="/docs/legend.html" title="Essential legend">Essential legend</a><ul class="menu_list js-menu_list __legend"></ul></li></menu></div><div class="nine columns"><h1 id="let-s-begin">Let&#39;s begin</h1><p>CSSG describes substance structure with familiar cascade of CSS classes, using BEM concept in slightly different way.<br>Classes naming happens according to accepted rules that you or your company follow.<br>Classes standing apart of substance classes are added near main class.<br>As a rule, auxillary (cosmetic) classes are not added, except for special cases (described in <a href="advanced.md">advanced</a>)</p><p>Along this documentation fictional substance &quot;post&quot; is used as an example.<br>Let&#39;s assume it&#39;s the post in blog or any other block that has head, body, footer and secondary elements.</p><h2 id="your-first-cssg">Your first CSSG</h2><p>Let&#39;s say your HTML looks something like this:</p><pre><code class="language-html">&lt;div class=&quot;post&quot;&gt;
-                        &lt;div class=&quot;post_h&quot;&gt;
-                            &lt;div class=&quot;post_h_name&quot;&gt;Header&lt;/div&gt;
-                        &lt;/div&gt;
-                        &lt;div class=&quot;post_b&quot;&gt;
-                            Content
-                        &lt;/div&gt;
-                        &lt;div class=&quot;post_f&quot;&gt;
-                            Additional information
-                        &lt;/div&gt;
-                    &lt;/div&gt;</code></pre><p>CSS looks like that:</p><pre><code class="language-css"><span class="class">.post</span> <span class="rules">{
-                        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">14</span>px</span></span>;
-                    <span class="rule">}</span></span>
-                    
-                    <span class="class">.post_h</span> <span class="rules">{
-                        <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
-                    <span class="rule">}</span></span></code></pre><p>etc.</p><p>CSSG illustrates HTML structure with CSS terminology and is placed in document <em>before</em> all other rules:</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            post_h
-                                post_h_name
-                                post_h_date
-                    
-                            post_b
-                                ...
-                    
-                            post_f
-                    
-                    */</span>
-                    
-                    <span class="class">.post</span> <span class="rules">{
-                        <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">14</span>px</span></span>;
-                    <span class="rule">}</span></span></code></pre><p>If you&#39;ve worked with HAML or have idea about it&#39;s syntax, this structure will be familiar to you.<br>By default all structure elements don&#39;t have specific DOM-presentantion, so <em>class</em> is prior to <em>tag</em>.<br>If it&#39;s necessary to exaggerate tag-class connection, habitual zen-coding notation is used:</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            post_h
-                                post_h_name
-                                i.post_h_date
-                    
-                    */</span></code></pre><p>Few notes on syntax:</p><blockquote><p>descendants illustrated by tab<br>siblings separated by extra line in case of having child elements<br>CSSG structure should fit screen height due to viewing comfort</p></blockquote><h2 id="key-content">Key content</h2><p>Key content is denoted with ellipsis (...), other content is ignored.<br>Ellipsis means that there is no nesting or it is not related to described structure.<br>Example of incorrect CSSG:</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            post_h
-                                post_h_name
-                                    ...
-                                post_h_date
-                                    ...
-                    
-                            post_b
-                                ...
-                    
-                            post_f
-                                ...
-                    
-                    */</span></code></pre><p>Key content can be located near other important substance part:</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            post_h
-                                post_h_name
-                                post_h_date
-                    
-                            post_b
-                                ...
-                                post_b_author
-                    
-                            post_f
-                    
-                    */</span></code></pre><p>Apart substance, but still related to project, is denoted with figure brackets.<br>Key content, complemented with apart substance, is denoted with ellipsis placed nearby.</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            post_h
-                                {date}
-                            post_b
-                                post_cnt
-                                    {... article}
-                    
-                    */</span></code></pre><h2 id="pseudo-elements">Pseudo elements</h2><p>When it&#39;s meaningful to depict usage of pseudo-elements just use native notation:</p><blockquote><p>Just remember about the right placement!</p></blockquote><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            post_h
-                                ::before
-                                post_h_name
-                                    ::before
-                    
-                                ::after
-                    
-                    */</span></code></pre><h2 id="links">Links</h2><p>In case of complicated structure, it is more convenient to describe structure skeleton with links to compound sections in the beginning of CSS document.</p><pre><code class="language-css">&gt;&gt; <span class="tag">CSS</span> <span class="tag">start</span>
-                    
-                    <span class="comment">/*
-                    
-                        post
-                            #header
-                            #body
-                            #aux
-                    
-                    */</span>
-                    
-                    &gt;&gt; <span class="tag">CSS</span> <span class="tag">continues</span>
-                    
-                    <span class="comment">/* #header
-                    
-                        post_h
-                            post_h_name
-                    
-                    */</span></code></pre><blockquote><p>link to compound section is denoted by native symbol - #</p></blockquote><h2 id="modificators-and-project-classes-mix-ins-">Modificators and project classes (mix-ins)</h2><p>HTML layout changes - due to context or by itself. CSS modificators allow to change substance presentation.<br>Modificator in fact is CSS class like <strong>.post__new</strong> or <strong>.__compact</strong>, which is placed near main class.<br>Project class (mix-in) allows to re-use substance and is placed separately from main class, e.g. <strong>.post-featured</strong>.</p><p>In CSSG all possible modificators placed on the right (aligned independently from nesting level) of target class.<br>You choose distance manually, regarding diagram size and reading comfort.<br>If project (mix-in) is implied, it is placed <em>before</em> modificators list.</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post                        -project __new __featured
-                            post_h
-                            post_b
-                                post_b              __compact
-                    
-                    */</span></code></pre><blockquote><p>modificators list in such way points to <em>availability</em> of their simultaneous presence, without extra logic<br>more detailed information about modificators in <a href="advanced.md">advanced.md</a></p></blockquote><h2 id="optional-parts">Optional parts</h2><p>Parts of substance, that may absent (or not compulsory for current substance) are enclosed in square brackets.<br>If it&#39;s single class, brackets placed on the same line, on the contrary they are placed on separate lines for more convenient reading.</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            [post_teaser]
-                            post_h
-                            post_b
-                                [
-                                post_b_top
-                                    post_b_top_tx
-                                ]
-                    
-                    */</span></code></pre><p>If optional part is a wrapper, following syntax is used:</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        [post_w]
-                            post
-                                post_h
-                                post_b
-                                    [post_b_cnt]
-                                        [post_b_tx]
-                                            ...
-                                        [/post_b_tx]
-                                    [/post_b_cnt]
-                        [/post_w]
-                    
-                    */</span></code></pre><blockquote><p>hyphens and spaces are not dogmatic in this case. Mind code purity and reading comfort in the first place.<br>furthermore, team might want to choose single syntax, equal for every member.</p></blockquote><h2 id="persistent-blocks">Persistent blocks</h2><p>Practically, large project or framework implies structures, that remain contant in spite of context. Examples of such structures - button, form element, social widget etc.</p><p>When they can&#39;t be ignored or on the contrary - it&#39;s <em>necessary</em> to illustrate their presence - following syntax is used:</p><pre><code class="language-css"><span class="comment">/*
-                    
-                        post
-                            post_h
-                            post_b
-                            post_f
-                                post_f_ac
-                                    &lt;social&gt;
-                    
-                    */</span></code></pre><blockquote><p>it is important to make up list of persistent, re-usable blocks<br>developers team should obtain single list of blocks</p></blockquote><p>Proceed to <a href="advanced.md">advanced</a></p></div></div></main></div><footer><div class="container"><div class="row"><div class="columns six"><section>CSSG version: 2.0 release</section><section>CSSG edtior version: 0.1.0 alpha</section></div><div class="columns six"><section>2013 - 2015 CSS-o-Gram</section><section>MIT license</section></div></div></div></footer><script type="text/javascript" async src="../assets/js/main.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', 'UA-61571934-1', 'auto');
-            ga('send', 'pageview');</script></body></html>
+<!doctype HTML>
+<html>
+    <head>
+        <title>CSS-o-Gram - CSSG</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="description" content="CSS descriptional meta language">
+<meta name="keywords" content="CSS, layout skeleton, meta-language, html parser, AST tree">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link href='http://fonts.googleapis.com/css?family=Cabin:400,600,400italic|Ubuntu:400,700' rel='stylesheet' type='text/css'>
+<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
+<link rel="stylesheet" href="../assets/css/main.css">
+
+<link rel="subresource" href="../assets/js/jquery.min.js"/>
+<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+    <div class="container">
+        
+        <a class="logo" href="/" title="CSS-o-Gram - About">
+            <span class="logo_img">
+                <img src="../assets/i/logo.png" alt="CSSG logo"/>
+            </span>
+            <span class="logo_tx">
+                CSSG
+            </span>
+        </a>
+        <nav class="nav">
+            
+    
+        
+    
+
+    
+        
+            <a class="nav_i
+                
+                 __active
+                " href="/index.html">About</a>
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+
+    
+        
+            <a class="nav_i " href="/../editor.html">Editor</a>
+        
+    
+
+    
+        
+    
+
+    
+
+    
+
+    
+
+    
+
+
+
+            <div class="share">
+                <a class="share_i __github" target="_blank" title="Star on Github" href="https://github.com/CSSG">
+                    <i class="icon-github"></i><span>Star on Github</span>
+                </a>
+                <a class="share_i __facebook" target="_blank" title="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://cssg.rocks/">
+                    <i class="icon-facebook"></i>
+                </a>
+                <a class="share_i __twitter" target="_blank" title="Share on Twitter" href="https://twitter.com/intent/tweet?text=CSS-o-Gram Rocks!&amp;url=http://cssg.rocks/">
+                    <i class="icon-twitter"></i>
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+        <!-- /header -->
+        <div class="container">
+            <main class="content">
+                <!-- body -->
+                
+                
+                    <div class="row">
+
+    
+        <div class="three columns">
+            <!-- submenu -->
+            <menu class="menu __hidden js-menu">
+    
+        <li class="menu_i">
+            <a class="menu_a" href="/docs/basic.html" title="CSSG basics">CSSG basics</a>
+            <ul class="menu_list js-menu_list __basic"></ul>
+        </li>
+    
+        <li class="menu_i">
+            <a class="menu_a" href="/docs/advanced.html" title="Advanced CSSG">Advanced CSSG</a>
+            <ul class="menu_list js-menu_list __advanced"></ul>
+        </li>
+    
+        <li class="menu_i">
+            <a class="menu_a" href="/docs/legend.html" title="Essential legend">Essential legend</a>
+            <ul class="menu_list js-menu_list __legend"></ul>
+        </li>
+    
+</menu>
+            <!-- /submenu -->
+        </div>
+    
+
+    <div class="nine columns">
+
+<h1 id="let-s-begin">Let&#39;s begin</h1>
+<p>CSSG describes substance structure with familiar cascade of CSS classes, using BEM concept in slightly different way.<br>Classes naming happens according to accepted rules that you or your company follow.<br>Classes standing apart of substance classes are added near main class.<br>As a rule, auxillary (cosmetic) classes are not added, except for special cases (described in <a href="advanced.md">advanced</a>) </p>
+<p>Along this documentation fictional substance &quot;post&quot; is used as an example.<br>Let&#39;s assume it&#39;s the post in blog or any other block that has head, body, footer and secondary elements.</p>
+<h2 id="your-first-cssg">Your first CSSG</h2>
+<p>Let&#39;s say your HTML looks something like this:</p>
+<pre><code class="language-html">&lt;div class=&quot;post&quot;&gt;
+    &lt;div class=&quot;post_h&quot;&gt;
+        &lt;div class=&quot;post_h_name&quot;&gt;Header&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;post_b&quot;&gt;
+        Content
+    &lt;/div&gt;
+    &lt;div class=&quot;post_f&quot;&gt;
+        Additional information
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>CSS looks like that:</p>
+<pre><code class="language-css"><span class="class">.post</span> <span class="rules">{
+    <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">14</span>px</span></span>;
+<span class="rule">}</span></span>
+
+<span class="class">.post_h</span> <span class="rules">{
+    <span class="rule"><span class="attribute">font-weight</span>:<span class="value"> bold</span></span>;
+<span class="rule">}</span></span></code></pre>
+<p>etc.</p>
+<p>CSSG illustrates HTML structure with CSS terminology and is placed in document <em>before</em> all other rules:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h
+            post_h_name
+            post_h_date
+
+        post_b
+            ...
+
+        post_f
+
+*/</span>
+
+<span class="class">.post</span> <span class="rules">{
+    <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">14</span>px</span></span>;
+<span class="rule">}</span></span></code></pre>
+<p>If you&#39;ve worked with HAML or have idea about it&#39;s syntax, this structure will be familiar to you.<br>By default all structure elements don&#39;t have specific DOM-presentantion, so <em>class</em> is prior to <em>tag</em>.<br>If it&#39;s necessary to exaggerate tag-class connection, habitual zen-coding notation is used:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h
+            post_h_name
+            i.post_h_date
+
+*/</span></code></pre>
+<p>Few notes on syntax:  </p>
+<blockquote>
+<p>descendants illustrated by tab<br>siblings separated by extra line in case of having child elements<br>CSSG structure should fit screen height due to viewing comfort</p>
+</blockquote>
+<h2 id="key-content">Key content</h2>
+<p>Key content is denoted with ellipsis (...), other content is ignored.<br>Ellipsis means that there is no nesting or it is not related to described structure.<br>Example of incorrect CSSG:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h
+            post_h_name
+                ...
+            post_h_date
+                ...
+
+        post_b
+            ...
+
+        post_f
+            ...
+
+*/</span></code></pre>
+<p>Key content can be located near other important substance part:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h
+            post_h_name
+            post_h_date
+
+        post_b
+            ...
+            post_b_author
+
+        post_f
+
+*/</span></code></pre>
+<p>Apart substance, but still related to project, is denoted with figure brackets.<br>Key content, complemented with apart substance, is denoted with ellipsis placed nearby.</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h
+            {date}
+        post_b
+            post_cnt
+                {... article}
+
+*/</span></code></pre>
+<h2 id="pseudo-elements">Pseudo elements</h2>
+<p>When it&#39;s meaningful to depict usage of pseudo-elements just use native notation:  </p>
+<blockquote>
+<p>Just remember about the right placement!</p>
+</blockquote>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h
+            ::before
+            post_h_name
+                ::before
+
+            ::after
+
+*/</span></code></pre>
+<h2 id="links">Links</h2>
+<p>In case of complicated structure, it is more convenient to describe structure skeleton with links to compound sections in the beginning of CSS document.</p>
+<pre><code class="language-css">&gt;&gt; <span class="tag">CSS</span> <span class="tag">start</span>
+
+<span class="comment">/*
+
+    post
+        #header
+        #body
+        #aux
+
+*/</span>
+
+&gt;&gt; <span class="tag">CSS</span> <span class="tag">continues</span>
+
+<span class="comment">/* #header
+
+    post_h
+        post_h_name
+
+*/</span></code></pre>
+<blockquote>
+<p>link to compound section is denoted by native symbol - #</p>
+</blockquote>
+<h2 id="modificators-and-project-classes-mix-ins-">Modificators and project classes (mix-ins)</h2>
+<p>HTML layout changes - due to context or by itself. CSS modificators allow to change substance presentation.<br>Modificator in fact is CSS class like <strong>.post__new</strong> or <strong>.__compact</strong>, which is placed near main class.<br>Project class (mix-in) allows to re-use substance and is placed separately from main class, e.g. <strong>.post-featured</strong>.</p>
+<p>In CSSG all possible modificators placed on the right (aligned independently from nesting level) of target class.<br>You choose distance manually, regarding diagram size and reading comfort.<br>If project (mix-in) is implied, it is placed <em>before</em> modificators list.</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post                        -project __new __featured
+        post_h
+        post_b
+            post_b              __compact
+
+*/</span></code></pre>
+<blockquote>
+<p>modificators list in such way points to <em>availability</em> of their simultaneous presence, without extra logic<br>more detailed information about modificators in <a href="advanced.md">advanced.md</a></p>
+</blockquote>
+<h2 id="optional-parts">Optional parts</h2>
+<p>Parts of substance, that may absent (or not compulsory for current substance) are enclosed in square brackets.<br>If it&#39;s single class, brackets placed on the same line, on the contrary they are placed on separate lines for more convenient reading.</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        [post_teaser]
+        post_h
+        post_b
+            [
+            post_b_top
+                post_b_top_tx
+            ]
+
+*/</span></code></pre>
+<p>If optional part is a wrapper, following syntax is used:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    [post_w]
+        post
+            post_h
+            post_b
+                [post_b_cnt]
+                    [post_b_tx]
+                        ...
+                    [/post_b_tx]
+                [/post_b_cnt]
+    [/post_w]
+
+*/</span></code></pre>
+<blockquote>
+<p>hyphens and spaces are not dogmatic in this case. Mind code purity and reading comfort in the first place.<br>furthermore, team might want to choose single syntax, equal for every member.</p>
+</blockquote>
+<h2 id="persistent-blocks">Persistent blocks</h2>
+<p>Practically, large project or framework implies structures, that remain contant in spite of context. 
+Examples of such structures - button, form element, social widget etc.</p>
+<p>When they can&#39;t be ignored or on the contrary - it&#39;s <em>necessary</em> to illustrate their presence - following syntax is used:</p>
+<pre><code class="language-css"><span class="comment">/*
+
+    post
+        post_h
+        post_b
+        post_f
+            post_f_ac
+                &lt;social&gt;
+
+*/</span></code></pre>
+<blockquote>
+<p>it is important to make up list of persistent, re-usable blocks<br>developers team should obtain single list of blocks</p>
+</blockquote>
+<p>Proceed to <a href="advanced.md">advanced</a></p>
+
+
+    </div>
+</div>
+                
+                <!-- /body -->
+            </main>
+        </div>
+        <!-- footer -->
+        <footer>
+    <div class="container">
+        <div class="row">
+            <div class="columns six">
+                <section>CSSG version: 2.0 release</section>
+                <section>CSSG edtior version: 0.1.0 alpha</section>
+            </div>
+            <div class="columns six">
+                <section>2013 - 2015 CSS-o-Gram</section>
+                <section>MIT license</section>
+            </div>
+        </div>
+    </div>
+</footer>
+        <!-- /footer -->
+        <script type="text/javascript" async src="../assets/js/main.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-61571934-1', 'auto');
+    ga('send', 'pageview');
+</script>
+    </body>
+</html>

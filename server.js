@@ -14,8 +14,8 @@ var info = console.info;
 var dist = './public';
 
 var config = {
-    ip : process.env.OPENSHIFT_NODEJS_IP,
-    port : process.env.OPENSHIFT_NODEJS_PORT || 3000
+    ip : '0.0.0.0',
+    port : 8080
 };
 
 if (typeof config.ip === "undefined") {
